@@ -1,0 +1,90 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0-beta2'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+
+    configurations.all {
+        resolutionStrategy.force "com.android.support:support-annotations:$supportLibraryVersion"
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+
+// query git for the SHA, Tag and commit count. Use these to automate versioning.
+
+def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+def gitTag = 'git describe --tags'.execute([], project.rootDir).text.trim()
+def gitCommitCount = 'git rev-list --count HEAD'.execute([], project.rootDir).text.trim()
+
+task printInfo {
+    doLast {
+        println("gitTag: " + gitTag)
+        println("gitCommitCount: " + gitCommitCount)
+        println("gitSha: " + gitSha)
+        println("gitVersionTag" + gitVersionTag)
+        println("gitVersionCount" + gitVersionCount)
+    }
+}
+
+ext {
+    groupName = 'com.github.iplanetcn'
+
+    // Sdk and tools
+    minSdkVersion = 15
+    targetSdkVersion = 26
+    compileSdkVersion = 26
+    buildToolsVersion = '26.0.1'
+    applicationId = 'com.iplanetcn.phenixutils'
+
+    gitVersionTag = gitTag ?: "1.0"
+    gitVersionCount = Integer.parseInt(gitCommitCount ?: "1")
+
+    // dependencies versions
+    supportLibraryVersion = '26.0.1'
+    butterknifeVersion = '8.6.0'
+    guavaVersion = '20.0'
+    constraitLayoutVersion = '1.0.2'
+    junitVersion = '4.12'
+    espressoVersion = '3.0.0'
+    retrofitVersion = '2.3.0'
+    okhttpVersion = '3.8.0'
+    rxjavaVersion = '2.1.2'
+    rxandroidVersion = '2.0.1'
+    eventbusVersion = '3.0.0'
+    daggerVersion = "2.9"
+    gsonVersion = "2.8.0"
+    mockitoVersion = "1.10.19"
+    timberVersion = "4.5.1"
+    glideVersion = "4.0.0"
+    circleImageViewVersion = "2.1.0"
+    zxingVersion = "3.3.0"
+    greenDaoVersion = "3.2.2"
+    brvahVersion = "2.9.16"
+    pmdVersion = "5.8.1"
+    checkstyleVersion = "8.1"
+    findbugsVersion = "3.0.1"
+    bottomNavigtionViewExVersion = "1.2.2"
+    runnerVersion = "1.0.0"
+}
