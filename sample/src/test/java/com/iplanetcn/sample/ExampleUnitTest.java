@@ -1,4 +1,4 @@
-package com.iplanetcn.library;
+package com.iplanetcn.sample;
 
 import org.junit.Test;
 

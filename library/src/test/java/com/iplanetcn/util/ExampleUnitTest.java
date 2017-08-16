@@ -1,4 +1,4 @@
-package com.iplanetcn.phenixutils;
+package com.iplanetcn.util;
 
 import org.junit.Test;
 

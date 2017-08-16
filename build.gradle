@@ -56,7 +56,7 @@ ext {
     targetSdkVersion = 26
     compileSdkVersion = 26
     buildToolsVersion = '26.0.1'
-    applicationId = 'com.iplanetcn.phenixutils'
+    applicationId = 'com.iplanetcn.sample'
 
     gitVersionTag = gitTag ?: "1.0"
     gitVersionCount = Integer.parseInt(gitCommitCount ?: "1")
