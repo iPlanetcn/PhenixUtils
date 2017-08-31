@@ -29,6 +29,8 @@ deploy:
     - library/build/outputs/aar/library-release.aar
     - library/build/libs/library-javadoc.jar
     - library/build/libs/library-sources.jar
+  skip_cleanup: true
   on:
     tags: true
     repo: iplanetcn/phenix-utils
+
