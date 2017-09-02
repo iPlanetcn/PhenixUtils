@@ -34,8 +34,5 @@ deploy:
     tags: true
     repo: iplanetcn/phenix-utils
 notifications:
-  webhooks:
-    secure: "XpVhGo2hVHTyDz+VJmnR1ihgaksHnL2hropAz5JcPfWVhQc7ZZw9VzH48bRI7xc8m79B/U38URYj2+C/mJcKaGLNvWqqInLfnKz0zwjns//tt2IRpmrmeHPoZpt67W9akXBUPEIA96fYozoGeU6srs2tCyVylHPjePnK1qZZEwhtVDRKYHK+WgOhdUrwpbuqdRW/qC8HoZ+mqblpYGJVOpvMrwg4sIjDIGQtwhCDIxY9ei3rpYbaLZUTrUfHOiCUL36hXcGyjyupEnoi1KuoRoU1IM8+RL2X0u84taQugovWnW2FiEcA9prsosE3/GeD2xUck7wKtUpToU5cWnkJlCFcnAQ0I3pyKfdfniQAffxNimVDYHtfp92jg4U68jtCkOUI6Krte88DR/vakJuKdlo0KXovy0emDdZymMrg5fLmrGBoL1sB9yuTz0MADzcPJJPCu8GK+rVth0Aov+cpDMfwASoAkPF76NbLkWzxBWVu7EMHmYLAgDPmP84rZ8+pYkUZ5feZh5OLCeq1dqMt/RTgJywf0nNp8DvCHX31Zsqj0WeJeoah4YlYXuzoQk/EmE4f4uJ7OO5PwvYudOaENAmJH0wrx7pR6lC7cZEgw6AUnaPjA0N+4UE4EmCV1lYD0NIQvvxi/5uNt7vcDZFk3hkVW4gbhpmV9tF/X1Yzd+I="
-    on_success: always
-    on_failure: always
+  webhooks: https://oapi.dingtalk.com/robot/send?access_token=2e8b3f2f9a9883440a1ebc40822aece5178f45a1689e74371284d0d13071121e
 
