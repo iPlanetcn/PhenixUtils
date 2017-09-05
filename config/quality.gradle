@@ -13,7 +13,7 @@ pmd {
 }
 
 def configDir = "${project.rootDir}/config/quality"
-def reportsDir = "${project.buildDir}/reports"
+def reportsDir = "${project.rootDir}/build/reports"
 def ABORT_ON_ERROR = true
 def XML_ENABLED = true
 def HTML_ENABLED = !XML_ENABLED
