@@ -14,46 +14,62 @@ pmd {
 
 def configDir = "${project.rootDir}/config/quality"
 def reportsDir = "${project.buildDir}/reports"
-
+def ABORT_ON_ERROR = true
+def XML_ENABLED = true
+def HTML_ENABLED = !XML_ENABLED
 check.dependsOn 'checkstyle', /*'findbugs',*/ 'pmd', 'lint'
 
 task checkstyle(type: Checkstyle, group: 'Verification', description: 'Runs code style checks') {
+    ignoreFailures = ABORT_ON_ERROR
+
     configFile file("$configDir/checkstyle/checkstyle.xml")
     source 'src'
     include '**/*.java'
     exclude '**/gen/**'
     classpath = files()
+
+    reports {
+        xml.enabled = XML_ENABLED
+        html.enabled = HTML_ENABLED
+        xml {
+            destination file("$reportsDir/checkstyle/checkstyle-result.xml")
+        }
+        html {
+            destination file("$reportsDir/checkstyle/checkstyle-result.html")
+        }
+    }
 }
 
-//task findbugs(type: FindBugs, group: 'Verification', description: 'Inspect java bytecode for bugs',
-//        dependsOn: ['compileDebugSources', 'compileReleaseSources']) {
-//
-//    ignoreFailures = true
-//    effort = "max"
-//    reportLevel = "high"
-//    excludeFilter = new File("$configDir/findbugs/findbugs-filter.xml")
-//    classes = files("$project.rootDir/app/build/intermediates/classes")
-//
-//    source 'src'
-//    include '**/*.java'
-//    exclude '**/gen/**'
-//
-//    reports {
-//        xml.enabled = false
-//        html.enabled = true
-//        xml {
-//            destination file("$reportsDir/findbugs/findbugs.xml")
-//        }
-//        html {
-//            destination file("$reportsDir/findbugs/findbugs.html")
-//        }
-//    }
-//
-//    classpath = files()
-//}
+task findbugs(type: FindBugs, group: 'Verification', description: 'Inspect java bytecode for bugs',
+        dependsOn: ['compileDebugSources', 'compileReleaseSources']) {
+    ignoreFailures = ABORT_ON_ERROR
+
+    effort = "max"
+    reportLevel = "high"
+    excludeFilter = new File("$configDir/findbugs/findbugs-filter.xml")
+    classes = files("$project.rootDir/app/build/intermediates/classes")
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = XML_ENABLED
+        html.enabled = HTML_ENABLED
+        xml {
+            destination file("$reportsDir/findbugs/findbugs-result.xml")
+        }
+        html {
+            destination file("$reportsDir/findbugs/findbugs-result.html")
+        }
+    }
+
+    classpath = files()
+}
 
 task pmd(type: Pmd, group: 'Verification', description: 'Inspect sourcecode for bugs') {
-    ignoreFailures = false
+    ignoreFailures = ABORT_ON_ERROR
+
     ruleSetFiles = files("$configDir/pmd/pmd-ruleset.xml")
     ruleSets = []
 
@@ -62,46 +78,24 @@ task pmd(type: Pmd, group: 'Verification', description: 'Inspect sourcecode for 
     exclude '**/gen/**'
 
     reports {
-        xml.enabled = false
-        html.enabled = true
+        xml.enabled = XML_ENABLED
+        html.enabled = HTML_ENABLED
         xml {
-            destination file("$reportsDir/pmd/pmd.xml")
+            destination file("$reportsDir/pmd/pmd-result.xml")
         }
         html {
-            destination file("$reportsDir/pmd/pmd.html")
+            destination file("$reportsDir/pmd/pmd-result.html")
         }
     }
 }
 
 android {
     lintOptions {
-        abortOnError true
-        xmlReport false
-        htmlReport true
+        abortOnError ABORT_ON_ERROR
+        xmlReport XML_ENABLED
+        htmlReport HTML_ENABLED
         lintConfig file("$configDir/lint/lint.xml")
         htmlOutput file("$reportsDir/lint/lint-result.html")
         xmlOutput file("$reportsDir/lint/lint-result.xml")
     }
-}
-
-task detectInfer(type: Exec) {
-    commandLine 'command'
-    args = ['-v', 'infer']
-
-    // Hide output if infer is present
-    standardOutput new ByteArrayOutputStream()
-
-    // Inform user if infer not present
-    ignoreExitValue true
-    doLast {
-        if (execResult.getExitValue() != 0) {
-            throw new GradleException("Infer seems not installed. Please refer to http://fbinfer.com/docs/getting-started.html")
-        }
-    }
-}
-
-task infer(type: Exec, dependsOn: [clean, detectInfer]) {
-    workingDir "${project.rootDir}"
-    commandLine 'infer'
-    args = ['--', './gradlew', 'build']
 }

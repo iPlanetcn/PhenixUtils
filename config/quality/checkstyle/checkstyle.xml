@@ -18,7 +18,7 @@
         </module>
 
         <module name="AvoidStarImport">
-            <property name="severity" value="warning" />
+            <property name="severity" value="error" />
         </module>
 
         <!-- General Code Style -->
