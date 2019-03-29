@@ -33,6 +33,11 @@ dependencies {
     implementation project(':library')
 }
 
+task printEnv {
+    println System.getenv("TEST_ENV")
+    println System.getProperty("TEST_PROPERTY")
+}
+
 
 
 apply from: "${rootDir}/config/quality.gradle"
