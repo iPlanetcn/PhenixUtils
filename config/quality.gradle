@@ -39,7 +39,7 @@ task findbugsXml(type: FindBugs, group: 'Verification',
     effort = "max"
     reportLevel = "high"
     excludeFilter = new File("$qualityConfigDir/findbugs/android-exclude-filter.xml")
-    classes = files("$project.rootDir/app/build/intermediates/classes")
+    classes = files("$project.rootDir/app/build/intermediates/javac")
 
     source 'src'
     include '**/*.java'
@@ -67,7 +67,7 @@ task findbugsHtml(type: FindBugs, group: 'Verification',
     effort = "max"
     reportLevel = "high"
     excludeFilter = new File("$qualityConfigDir/findbugs/android-exclude-filter.xml")
-    classes = files("$project.rootDir/app/build/intermediates/classes")
+    classes = files("$project.rootDir/app/build/intermediates/javac")
 
     source 'src'
     include '**/*.java'
